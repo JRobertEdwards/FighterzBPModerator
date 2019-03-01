@@ -37,5 +37,12 @@ If there are any usernames in the sheet that seem as if they have return charact
 
 #######
 
+Optimisation
+
+So far this script runs in a 'it works' fashion and there is certainly room for optimisation. As of 01/03/2019 that process has not been started. One area that can be improved on immediately is the rank_ranges(rank) function. Adding an if that checks if the rank > 600,000 and moving that into its own function call could essentially half that functions load.
+
+#######
+
+
 
 This has been a fun little side-project for me and I'm now looking to move into more python and reddit centered projects.
