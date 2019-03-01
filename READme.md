@@ -21,6 +21,7 @@ The reddit_username and rank_css is then used to update that reddiitors subreddi
 that their flair has been updated.
 
 #######
+
 How to run 
 
 In order to run the script to update user flairs simply call the function: update_user_flair(). This will kick off the process and follow it through to the end.
