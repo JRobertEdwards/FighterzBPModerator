@@ -4,7 +4,7 @@ The google sheets file has been populated by users by form response.
 
 #######
 
-How it works:
+How it works
 
 Essentially this script will first find all the names in the sheet (as they are already known to be in col 2 this can be set easily).
 
@@ -22,8 +22,17 @@ that their flair has been updated.
 
 #######
 How to run 
-update_user_flair
 
+In order to run the script to update user flairs simply call the function: update_user_flair(). This will kick off the process and follow it through to the end.
+
+#######
+
+Exceptions
+
+
+In the functionsReddit.py file thee is a try except block which should only catch something when the reddit_username variable cannot be found. This can be caused by strange formatting errors in google sheets which can arise due to copy/pasting usernames.
+
+If there are any usernames in the sheet that seem as if they have return characters in them despite containing only the username itself, it may be worth removing the username entirely and manually typing it in.
 
 
 #######
