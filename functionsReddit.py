@@ -8,6 +8,7 @@ reddit = praw.Reddit(client_id = '',
                      user_agent='')
 
 
+#these are the flairs css_class names and should be used for updating the user flairs. The integer indicates their necessary score to reach.
 ranks_and_flairs = {
     0: "saibaman",
     30000: "earthling",
@@ -29,27 +30,6 @@ ranks_and_flairs = {
     2000000: 'god-v',
 }
 
-#these are the flairs css_class names and should be used for updating the user flairs.
-flairs = {
-    1: "saibaman",
-    2: "eathling",
-    3: "namekian",
-    4: "saiyan",
-    5: "friezaclan",
-    6: 'ss',
-    7: 'android',
-    8: 'ss2',
-    9: 'supremekai',
-    10: 'demon',
-    11: 'ss3',
-    12: 'majin-v',
-    13: 'ssg-v',
-    14: 'ssb-v',
-    15: 'livinglegend-v',
-    16: 'ssr-v',
-    17: 'pridetrooper-v',
-    18: 'god-v',
-}
 
 def get_current_user_flair(reddit_username):
     user_flair = next(reddit.subreddit('dragonballfighterz').flair(reddit_username))
