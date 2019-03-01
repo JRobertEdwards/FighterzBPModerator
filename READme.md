@@ -21,5 +21,12 @@ The reddit_username and rank_css is then used to update that reddiitors subreddi
 that their flair has been updated.
 
 #######
+How to run 
+update_user_flair
+
+
+
+#######
+
 
 This has been a fun little side-project for me and I'm now looking to move into more python and reddit centered projects.
