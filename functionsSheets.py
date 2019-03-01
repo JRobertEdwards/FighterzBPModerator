@@ -1,7 +1,7 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pprint
-from functionsReddit import  flairs, set_reddit_user_flair
+from functionsReddit import  flairs, ranks_and_flairs, set_reddit_user_flair, get_current_user_flair
 
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
@@ -9,7 +9,7 @@ creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', s
 client = gspread.authorize(creds)
 
 # Sheet brings in entire worksheet 'users'.
-sheet = client.open('users').sheet1
+sheet = client.open('Blank Quiz (Responses)').sheet1
 # names_have_been_used is a global list that is appended to as each iteration of the names list
 # is pushed through. This is used to check against already pushed names.
 names_have_been_used = []
@@ -59,7 +59,8 @@ def return_this_row(row_values):
         return
     # Third column from the end is the v-link column where a html link should be present.
     rank = row_values[2]
-    rank_css = rank_ranges(rank)
+    #rank_css = rank_ranges(rank)
+    rank_css = get_rank_css(rank)
     v_link = row_values[-3]
     # checks if rank meets verification threshold and if false to message user for proof.
     if not verify_rank_with_v_link(v_link, rank):
@@ -69,8 +70,12 @@ def return_this_row(row_values):
         return
     else:
         # pass rank_check user flair and reddit username to change user flair.
-        set_reddit_user_flair(rank_css, reddit_username)
-        print('user-flair: ',rank_css, 'username: ', reddit_username)
+        current_flair = get_current_user_flair(reddit_username)
+        if current_flair != rank_css:
+            set_reddit_user_flair(rank_css, reddit_username)
+            print('Rank updated to: ', rank_css, 'for ', reddit_username)
+        else:
+            print('reddit flair is same as updated flair')
 
 
 # Check reddit username against global list of used usernames
@@ -93,80 +98,18 @@ def verify_rank_with_v_link(v_link, rank):
     else:
         return True
 
-# casting rank to an integer allows the searching of ranges for ranks to return the css_class flair string.
-def rank_ranges(rank):
-    this_rank = int(rank)
-    # saibaman 
-    if this_rank >= 0 and this_rank < 30000:
-        user_flair = flairs[1]
-        return user_flair
-    # earthling 
-    if this_rank >= 30000 and this_rank < 70000:
-        user_flair = flairs[2]
-        return user_flair
-    # namekian 
-    if this_rank >= 70000 and this_rank < 120000:
-        user_flair = flairs[3]
-        return user_flair
-    # saiyan 
-    if this_rank >= 120000 and this_rank < 170000:
-        user_flair = flairs[4]
-        return user_flair
-    # friezaclan 
-    if this_rank >= 170000 and this_rank < 220000:
-        user_flair = flairs[5]
-        return user_flair
-    # ss 
-    if this_rank >= 220000 and this_rank < 270000:
-        user_flair = flairs[6]
-        return user_flair
-    # android 
-    if this_rank >= 270000 and this_rank < 330000:
-        user_flair = flairs[7]
-        return user_flair
-    # ss2 
-    if this_rank >= 330000 and this_rank < 400000:
-        user_flair = flairs[8]
-        return user_flair
-    # supremekai 
-    if this_rank >= 400000 and this_rank < 500000:
-        user_flair = flairs[9]
-        return user_flair
-    # demon 
-    if this_rank >= 500000 and this_rank < 600000:
-        user_flair = flairs[10]
-        return user_flair
-    # ssj3 
-    if this_rank >= 600000 and this_rank < 700000:
-        user_flair = flairs[11]
-        return user_flair
-    # majin 
-    if this_rank >= 700000 and this_rank < 800000:
-        user_flair = flairs[12]
-        return user_flair
-    # ssg-v 
-    if this_rank >= 800000 and this_rank < 900000:
-        user_flair = flairs[13]
-        return user_flair
-    # ssb-v 
-    if this_rank >= 900000 and this_rank < 1000000:
-        user_flair = flairs[14]
-        return user_flair
-    # livinglegend-v 
-    if this_rank >= 1000000 and this_rank < 1200000:
-        user_flair = flairs[15]
-        return user_flair
-    # ssr-v 
-    if this_rank >= 1200000 and this_rank < 1400000:
-        user_flair = flairs[16]
-        return user_flair
-    # pridetrooper-v
-    if this_rank >= 1400000 and this_rank < 2000000:
-        user_flair = flairs[17]
-        return user_flair
-    # god-v
-    if this_rank >= 1200000 and this_rank < 1400000:
-        user_flair = flairs[18]
-        return user_flair
-    else:
-        return False
+
+# iterates through the flair tuple checking against rank score.
+# returns flair_name
+def get_rank_css(rank):
+    rank = int(rank)
+    flair_and_rank = ranks_and_flairs
+    flair_name = ''
+    for flair in flair_and_rank.items():
+        if rank >= flair[0]:
+            flair_name = flair[1]
+            continue
+        else:
+            if flair[0] >= rank:
+                return flair_name
+        
