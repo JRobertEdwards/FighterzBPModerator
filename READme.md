@@ -14,7 +14,7 @@ the reddit username, rank (which is usually an integer although not always) and 
 Once this data is extracted the username is checked if it has already been 'seen', if it hasn't then the rank range can be checked
 to see which flair that user will fall into.
 
-Once these are found depending on the range a verify link needs to be checked (this is down the subreddit rules). Although there's possibly
+Once these are found depending on the range a verify link needs to be checked (this is down to the subreddit rules). Although there's possibly 
 a way to actually verify these links in a script, I elected to have the 'https://' pattern be enough to count as a verify.
 
 The reddit_username and rank_css is then used to update that reddiitors subreddit flair and send them a message to let them know 
@@ -31,13 +31,17 @@ In order to run the script to update user flairs simply call the function: updat
 Exceptions
 
 
-In the functionsReddit.py file thee is a try except block which should only catch something when the reddit_username variable cannot be found. This can be caused by strange formatting errors in google sheets which can arise due to copy/pasting usernames.
+In the functionsReddit.py file there is a try except block which should only catch something when the reddit_username variable cannot be found. This can be caused by strange formatting errors in google sheets which can arise due to copy/pasting usernames.
 
 If there are any usernames in the sheet that seem as if they have return characters in them despite containing only the username itself, it may be worth removing the username entirely and manually typing it in.
 
 
 #######
 
-Optimisation
+Post execution thoughts
 
-So far this script runs in a 'it works' fashion and there is certainly room for optimisation. As of 01/03/2019 that process has not been started. One area that can be improved on immediately is the rank_ranges(rank) function. Adding an if that checks if the rank > 600,000 and moving that into its own function call could essentially half that functions load.
+After running the script there were around 14 users out of 400 that were caught where their user flair was updated. 
+One user was actually demoted since they had messaged mods directly to have their flair updated after they'd filled in the form.
+A check should have been implemented to see whether current user flair was higher than the new user flair to be assigned by the script.
+
+In terms of outsider usability this is very much catered to this one instance and so lacks much re-usability. 
