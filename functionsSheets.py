@@ -8,7 +8,7 @@ scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/au
 creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
 client = gspread.authorize(creds)
 
-# Sheet brings in entire worksheet 'users'.
+# Sheet brings in entire worksheet for form responses.
 sheet = client.open('Blank Quiz (Responses)').sheet1
 # names_have_been_used is a global list that is appended to as each iteration of the names list
 # is pushed through. This is used to check against already pushed names.
