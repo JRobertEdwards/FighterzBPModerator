@@ -2,9 +2,7 @@ This is a script that allows the user to update the flairs on the dragonballfigh
 
 The google sheets file has been populated by users by form response.
 
-#######
-
-How it works
+# How it works
 
 Essentially this script will first find all the names in the sheet (as they are already known to be in col 2 this can be set easily).
 
@@ -20,25 +18,18 @@ a way to actually verify these links in a script, I elected to have the 'https:/
 The reddit_username and rank_css is then used to update that reddiitors subreddit flair and send them a message to let them know 
 that their flair has been updated.
 
-#######
-
-How to run 
+# How to run 
 
 In order to run the script to update user flairs simply call the function: update_user_flair(). This will kick off the process and follow it through to the end.
 
-#######
-
-Exceptions
+# Exceptions
 
 
 In the functionsReddit.py file there is a try except block which should only catch something when the reddit_username variable cannot be found. This can be caused by strange formatting errors in google sheets which can arise due to copy/pasting usernames.
 
 If there are any usernames in the sheet that seem as if they have return characters in them despite containing only the username itself, it may be worth removing the username entirely and manually typing it in.
 
-
-#######
-
-Post execution thoughts
+# Post execution thoughts
 
 After running the script there were around 14 users out of 400 that were caught where their user flair was updated. 
 One user was actually demoted since they had messaged mods directly to have their flair updated after they'd filled in the form.
